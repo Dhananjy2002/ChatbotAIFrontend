@@ -300,6 +300,7 @@
   gap: 12px;
   max-width: 85%;
   animation: fadeIn 0.3s ease;
+  min-width: 0; /* Important: allows flex items to shrink */
 }
 
 @keyframes fadeIn {
@@ -347,12 +348,15 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+  min-width: 0; /* Important: allows text to wrap properly */
+  flex: 1;
 }
 
 .message-header {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .message-sender {
@@ -371,7 +375,12 @@
   border-radius: 15px;
   line-height: 1.6;
   font-size: 0.95rem;
+  /* Enhanced word wrapping */
   word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  min-width: 0;
 }
 
 .chat-message.user .message-content {
@@ -530,10 +539,37 @@
   color: #555;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
+  .chat-messages {
+    padding: 12px;
+  }
+
   .chat-message {
-    max-width: 95%;
+    max-width: 90%;
+    gap: 10px;
+  }
+
+  .message-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+
+  .message-content {
+    padding: 12px 14px;
+    font-size: 0.9rem;
+  }
+
+  .message-sender {
+    font-size: 0.8rem;
+  }
+
+  .message-time {
+    font-size: 0.7rem;
+  }
+
+  .chat-input {
+    padding: 10px 15px;
   }
 
   .chat-empty-content h2 {
@@ -544,11 +580,111 @@
     font-size: 3rem;
   }
 
+  /* Show actions on mobile (no hover) */
+  .message-actions {
+    opacity: 1;
+  }
+}
+@media (max-width: 480px) {
   .chat-messages {
-    padding: 15px;
+    padding: 8px;
+    gap: 15px;
+  }
+
+  .chat-message {
+    max-width: 95%;
+    gap: 8px;
+  }
+
+  .message-avatar {
+    width: 28px;
+    height: 28px;
+    font-size: 0.85rem;
+  }
+
+  .message-content {
+    padding: 10px 12px;
+    font-size: 0.875rem;
+    border-radius: 12px;
+  }
+
+  .chat-message.user .message-content {
+    border-bottom-right-radius: 4px;
+  }
+
+  .chat-message.assistant .message-content {
+    border-bottom-left-radius: 4px;
+  }
+
+  .message-header {
+    gap: 6px;
+  }
+
+  .message-sender {
+    font-size: 0.75rem;
+  }
+
+  .message-time {
+    font-size: 0.65rem;
+  }
+
+  .message-body {
+    gap: 4px;
+  }
+
+  .message-action-btn {
+    padding: 4px 8px;
+    font-size: 0.75rem;
   }
 
   .chat-input {
-    padding: 10px 15px;
+    padding: 8px 10px;
+  }
+
+  .input-container {
+    padding: 8px 12px;
+    border-radius: 12px;
+  }
+
+  .input-container textarea {
+    font-size: 0.9rem;
+  }
+
+  .input-container button {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+  }
+}
+
+/* ============================================
+   RESPONSIVE STYLES - VERY SMALL SCREENS
+   ============================================ */
+@media (max-width: 360px) {
+  .chat-message {
+    max-width: 100%;
+    gap: 6px;
+  }
+
+  /* Option 1: Hide avatar on very small screens */
+  /* .message-avatar {
+    display: none;
+  } */
+
+  /* OR Option 2: Make avatar even smaller (comment out above and use this) */
+
+  .message-avatar {
+    width: 24px;
+    height: 24px;
+    font-size: 0.75rem;
+  }
+
+  .message-content {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+
+  .chat-messages {
+    padding: 6px;
   }
 }
